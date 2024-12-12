@@ -32,3 +32,16 @@ ON
     e.employee_id = p.employee_id AND p.primary_flag = 'Y'
 WHERE 
     e.primary_flag = 'Y' OR p.primary_flag IS NULL;
+
+
+-- method 3
+SELECT employee_id, department_id
+FROM Employee
+GROUP BY employee_id
+HAVING COUNT(employee_id) = 1
+
+UNION
+
+SELECT employee_id, department_id
+FROM Employee
+WHERE primary_flag = 'Y';
