@@ -1,5 +1,7 @@
-SELECT DISTINCT
+SELECT COALESCE(
     (SELECT DISTINCT salary
-     FROM Employee
-     ORDER BY salary DESC
-     LIMIT 1 OFFSET 1) AS second_highest_salary;
+    FROM Employee
+    ORDER BY salary DESC
+    LIMIT 1 OFFSET 1),
+    NULL
+) AS SecondHighestSalary;
