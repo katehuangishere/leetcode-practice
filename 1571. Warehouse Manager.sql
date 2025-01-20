@@ -47,8 +47,18 @@ LCHouse2: 2 units of LC-TV + 2 units of LC-KeyChain.
 LCHouse3: 1 unit of LC-T-Shirt.
           Total volume: 1*800 = 800 cubic feet.
 ```
-
+-- <method 1>
 SELECT w.name AS warehouse_name, SUM(w.units * p.Width * p.Length * p.Height) AS volume
 FROM Warehouse w 
 LEFT JOIN Products p ON w.product_id = p.product_id
 GROUP BY 1;
+
+-- <method 2>
+WITH cte AS (
+    SELECT product_id, (Width * Length * Height) AS size
+    FROM Products
+)
+SELECT name AS warehouse_name, SUM(w.units * c.size) 
+FROM Warehouse w 
+LEFT JOIN cte c ON w.product_id = c.product_id
+GROUP BY name;
