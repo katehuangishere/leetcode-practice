@@ -43,5 +43,5 @@ FROM (
            LEAD(free) OVER (ORDER BY seat_id) AS next_free --  取得 下一行 free 值
     FROM Cinema
 ) t
-WHERE t.prev_free = 1 OR t.next_free = 1
+WHERE t.prev_free = 1 OR t.next_free = 1 -- 表示該座位 與前或後的座位都是連續的可用座位
 ORDER BY seat_id;
