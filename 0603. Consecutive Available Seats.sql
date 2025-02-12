@@ -39,8 +39,8 @@ ORDER BY c1.seat_id;
 SELECT seat_id
 FROM (
     SELECT seat_id,
-           LAG(free) OVER (ORDER BY seat_id) AS prev_free,
-           LEAD(free) OVER (ORDER BY seat_id) AS next_free
+           LAG(free) OVER (ORDER BY seat_id) AS prev_free, -- 取得 前一行 free 值
+           LEAD(free) OVER (ORDER BY seat_id) AS next_free --  取得 下一行 free 值
     FROM Cinema
 ) t
 WHERE t.prev_free = 1 OR t.next_free = 1
